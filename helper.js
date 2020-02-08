@@ -17,12 +17,6 @@ function getProjects() {
    return db('projects')
 }
 
-function getProjectByTask(id) {
-   return db('projects')
-      .join('tasks', 'projects.id', 'tasks.project_id')
-      .where({'projects.id': id})
-}
-
 function getTasks() {
 }
 
