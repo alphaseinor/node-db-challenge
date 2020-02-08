@@ -8,7 +8,7 @@ exports.up = function (knex) {
         .notNullable()
     tbl.string('description', 255)
     tbl.boolean('completed')
-        .defaultTo(false)
+        .defaultTo(false)//not supported by sqlite so will need to be done in api
   })
   //no foreign keys table
   .createTable('resources', tbl => {
@@ -42,7 +42,7 @@ exports.up = function (knex) {
         .notNullable()
     tbl.string('notes', 255)
     tbl.boolean('completed')
-        .defaultTo(false)
+        .defaultTo(false)//not supported by sqlite so will need to be done in api
   })
 }
 
