@@ -26,18 +26,50 @@ server.get("/", (req, res)=>{
 server.get('/projects', (req, res) => {
   db.getProjects()
     .then(projects => {
-      projects.forEach(obj => {
-        if (obj.completed == 1) {
-          obj.completed = true
+      projects.forEach(project => {
+        //fix for no defaultTo(false) in sqlite
+        if (project.completed == 1) {
+          project.completed = true
         } else {
-          obj.completed = false
+          project.completed = false
         }
       })
       res.status(200).json(projects);
   })
     .catch(error => {
-      res.status(500).json({error: 'problems retrieving projects'});
+      res.status(500).json({error: error, message: "could not retreive projects"});
   });
+});
+
+server.get('/resources', (req, res) => {
+  db.getResources()
+    .then(resources => {
+      res.status(200).json(resources);
+  })
+    .catch(error => {
+      res.status(500).json({error: error, message: "could not retreive resources"});
+  });
+});
+
+server.get('/tasks', (req, res) => {
+  db.getTasks()
+    .then(tasks => {
+      //fix for no defaultTo(false) in sqlite
+      tasks.forEach(task => {
+        if (task.completed == 1) {
+          task.completed = true
+        } else {
+          task.completed = false
+        }
+      })
+      res.status(200).json(tasks);
+  })
+    .catch(error => {
+      res.status(500).json({error: error, message: "could not retreive tasks"});
+  });
+
+  
+
 });
 
 module.exports = server
