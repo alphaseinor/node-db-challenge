@@ -83,4 +83,32 @@ server.post('/projects', (req, res) => {
   }
 })
 
+server.post('/resources', (req, res) => {
+  if(req.body.name) {
+    db.insertResource(req.body)
+      .then(resource => {
+        res.status(200).json(resource)
+      })
+      .catch(error => {
+        res.status(500).json({error: error, message: "could not add resource"})
+      })
+  } else {
+    res.status(400).json({ message: "could not add resource, missing name"})
+  }
+})
+
+server.post('/tasks', (req, res) => {
+  if(req.body.description && req.body.project_id) {
+    db.insertTask(req.body)
+      .then(task => {
+        res.status(200).json(task)
+      })
+      .catch(error => {
+        res.status(500).json({error: error, message: "could not add task"})
+      })
+  } else {
+    res.status(400).json({ message: "could not add task, missing description or project_id"})
+  }
+})
+
 module.exports = server
