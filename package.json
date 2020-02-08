@@ -1,0 +1,16 @@
+{
+  "name": "node-db-challenge",
+  "version": "1.0.0",
+  "description": "node db challenge feb 7th 2020",
+  "main": "index.js",
+  "repository": "https://github.com/alphaseinor/node-db-challenge.git",
+  "author": "Brian Hague <alphaseinor@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.20.8",
+    "knex-cleaner": "^1.3.0",
+    "nodemon": "^2.0.2",
+    "sqlite3": "^4.1.1"
+  }
+}
