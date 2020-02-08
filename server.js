@@ -34,20 +34,20 @@ server.get('/projects', (req, res) => {
           project.completed = false
         }
       })
-      res.status(200).json(projects);
+      res.status(200).json(projects)
   })
     .catch(error => {
-      res.status(500).json({error: error, message: "could not retreive projects"});
+      res.status(500).json({error: error, message: "could not retreive projects"})
   });
 });
 
 server.get('/resources', (req, res) => {
   db.getResources()
     .then(resources => {
-      res.status(200).json(resources);
+      res.status(200).json(resources)
   })
     .catch(error => {
-      res.status(500).json({error: error, message: "could not retreive resources"});
+      res.status(500).json({error: error, message: "could not retreive resources"})
   });
 });
 
@@ -62,14 +62,25 @@ server.get('/tasks', (req, res) => {
           task.completed = false
         }
       })
-      res.status(200).json(tasks);
+      res.status(200).json(tasks)
   })
     .catch(error => {
-      res.status(500).json({error: error, message: "could not retreive tasks"});
+      res.status(500).json({error: error, message: "could not retreive tasks"})
   });
-
-  
-
 });
+
+server.post('/projects', (req, res) => {
+  if(req.body.name) {
+    db.insertProject(req.body)
+      .then(project => {
+        res.status(200).json(project)
+      })
+      .catch(error => {
+        res.status(500).json({error: error, message: "could not add project"})
+      })
+  } else {
+    res.status(400).json({ message: "could not add project, missing name"})
+  }
+})
 
 module.exports = server
