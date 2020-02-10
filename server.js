@@ -52,6 +52,7 @@ server.get('/resources', (req, res) => {
 });
 
 server.get('/tasks', (req, res) => {
+  let tasks = {}
   db.getTasks()
     .then(tasks => {
       //fix for no defaultTo(false) in sqlite
@@ -61,13 +62,14 @@ server.get('/tasks', (req, res) => {
         } else {
           task.completed = false
         }
+        res.status(200).json(tasks)
       })
-      res.status(200).json(tasks)
-  })
+    })
     .catch(error => {
       res.status(500).json({error: error, message: "could not retreive tasks"})
-  });
-});
+    })
+})
+
 
 server.post('/projects', (req, res) => {
   if(req.body.name) {

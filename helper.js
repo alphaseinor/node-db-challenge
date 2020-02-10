@@ -18,10 +18,17 @@ function getProjects() {
 }
 
 function getTasks() {
+   return db("projects")
+      .join('tasks', 'tasks.project_id', 'projects.id')
+      .select('tasks.*', 'projects.name as project_name', 'projects.description as project_description')
 }
 
 function insertProject(data) {
    return db('projects').insert(data, "id");
+}
+
+function getProjectById(id) {
+   return db('projects').where("id", id).first()
 }
 
 function insertResource(data) {
